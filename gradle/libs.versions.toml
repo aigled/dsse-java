@@ -1,0 +1,22 @@
+# Version catalog
+# https://docs.gradle.org/current/userguide/version_catalogs.html#sec::toml-dependencies-format
+
+[versions]
+assertj = "3.27.6"
+jackson = "3.0.3"
+maven-publish = "0.36.0"
+junit = "6.0.2"
+logback = "1.5.22"
+lombok = "9.1.0"
+mockito = "5.21.0"
+
+[libraries]
+assertj-bom = { module = "org.assertj:assertj-bom", version.ref = "assertj" }
+jackson-bom = { module = "tools.jackson:jackson-bom", version.ref = "jackson" }
+junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
+logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+mockito-bom = { module = "org.mockito:mockito-bom", version.ref = "mockito" }
+
+[plugins]
+gradle-maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "maven-publish" }
+lombok = { id = "io.freefair.lombok", version.ref = "lombok" }
