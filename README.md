@@ -28,3 +28,16 @@ Add the following to your `build.gradle.kts`:
 dependencies {
     implementation("io.github.aigled:dsse-java:1.0.0")
 }
+```
+
+### Maven
+
+Add the following to your `pom.xml`:
+
+```xml
+<dependency>
+    <groupId>io.github.aigled</groupId>
+    <artifactId>dsse-java</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```

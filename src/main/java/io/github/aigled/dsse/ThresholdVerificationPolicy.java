@@ -4,6 +4,16 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 
+/**
+ * A verification policy that validates a {@link DSSEEnvelope} using a threshold-based approach.
+ * The policy requires a minimum number of valid signatures, provided by trusted verifiers,
+ * for the envelope to be considered verified.
+ * <p>
+ * This class supports optional filtering of verifiers based on the public key ID specified in
+ * individual signatures. If the filter is enabled, only the verifier associated with the key ID
+ * will be used for verification of that signature. If the filter is disabled, all trusted verifiers
+ * will be considered.
+ */
 @Slf4j
 public class ThresholdVerificationPolicy implements DSSEVerificationPolicy {
 
@@ -11,6 +21,23 @@ public class ThresholdVerificationPolicy implements DSSEVerificationPolicy {
     private final boolean filterPublicKeyId;
     private final Map<String, DSSEVerifier> trustedVerifiers;
 
+    /**
+     * Constructs a ThresholdVerificationPolicy with the specified configuration.
+     *
+     * @param threshold
+     *         the minimum number of valid signatures required for verification; must be greater than 0
+     * @param filterPublicKeyId
+     *         a flag indicating whether to filter verifiers based on the public key ID in the signature.
+     *         If true, only the matching verifier will be used for each signature. If false, all trusted verifiers
+     *         will be considered for each signature.
+     * @param trustedVerifiers
+     *         a map of public key IDs to their corresponding {@link DSSEVerifier} instances, representing
+     *         the trusted verifiers available for signature validation.
+     *         The keys in the map represent the public key identifiers, and the values are the associated
+     *         {@link DSSEVerifier} implementations.
+     * @throws IllegalArgumentException
+     *         if the specified threshold is less than or equal to 0
+     */
     public ThresholdVerificationPolicy(int threshold, boolean filterPublicKeyId, Map<String, DSSEVerifier> trustedVerifiers) {
 
         if (threshold <= 0) {

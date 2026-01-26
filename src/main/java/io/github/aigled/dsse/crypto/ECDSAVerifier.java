@@ -22,6 +22,18 @@ public class ECDSAVerifier implements DSSEVerifier {
     private final String algorithm;
     private final PublicKey publicKey;
 
+    /**
+     * Constructs a new {@code ECDSAVerifier} instance with the specified verification algorithm
+     * and public key. The public key must be of type EC (Elliptic Curve).
+     *
+     * @param algorithm
+     *         the verification algorithm to be used, e.g., "SHA256withECDSA"; must not be null
+     * @param publicKey
+     *         the public key to be used for verification; must not be null and must
+     *         have the algorithm type "EC"
+     * @throws IllegalArgumentException
+     *         if the public key algorithm is not "EC".
+     */
     public ECDSAVerifier(@NonNull String algorithm, @NonNull PublicKey publicKey) {
 
         if (!"EC".equalsIgnoreCase(publicKey.getAlgorithm())) {

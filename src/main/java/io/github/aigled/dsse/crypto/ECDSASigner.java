@@ -21,6 +21,18 @@ public class ECDSASigner implements DSSESigner {
     private final String algorithm;
     private final PrivateKey privateKey;
 
+    /**
+     * Constructs a new {@code ECDSASigner} instance with the specified signing algorithm
+     * and private key. The private key must be of type EC (Elliptic Curve).
+     *
+     * @param algorithm
+     *         the signing algorithm to be used, e.g., "SHA256withECDSA"; must not be null
+     * @param privateKey
+     *         the private key to be used for signing; must not be null and must
+     *         have the algorithm type "EC"
+     * @throws IllegalArgumentException
+     *         if the private key algorithm is not "EC".
+     */
     public ECDSASigner(@NonNull String algorithm, @NonNull PrivateKey privateKey) {
 
         if (!"EC".equalsIgnoreCase(privateKey.getAlgorithm())) {
