@@ -8,6 +8,16 @@ import tools.jackson.databind.MapperFeature;
 import tools.jackson.databind.SerializationFeature;
 import tools.jackson.databind.json.JsonMapper;
 
+/**
+ * A concrete implementation of the {@link DSSESerializer} interface for serializing {@link DSSEEnvelope}
+ * objects into JSON format using the Jackson library. This class leverages a customized {@link JsonMapper}
+ * to handle DSSEEnvelope-specific requirements during serialization.
+ *
+ * @see DSSESerializer
+ * @see DSSEEnvelope
+ * @see DSSEException
+ * @see DSSEJacksonModule
+ */
 public class Jackson2JsonDSSESerializer implements DSSESerializer {
 
     private final JsonMapper jsonMapper = JsonMapper.builder()

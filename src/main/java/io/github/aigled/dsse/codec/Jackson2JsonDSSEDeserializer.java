@@ -4,17 +4,21 @@ import io.github.aigled.dsse.DSSEDeserializer;
 import io.github.aigled.dsse.DSSEEnvelope;
 import io.github.aigled.dsse.DSSEException;
 import tools.jackson.databind.DeserializationFeature;
-import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.json.JsonMapper;
 
 /**
- * Jackson-based implementation of {@link DSSEDeserializer} that decodes DSSE envelopes
- * from JSON string representation into {@link DSSEEnvelope} domain objects.
+ * A concrete implementation of the {@link DSSEDeserializer} interface, built to deserialize
+ * encoded JSON representations of DSSE envelopes into {@link DSSEEnvelope} objects.
  * <p>
- * This decoder uses Jackson's {@link ObjectMapper} to deserialize JSON-encoded DSSE envelopes.
+ * This class leverages the Jackson library for JSON processing, and uses a custom
+ * {@link DSSEJacksonModule} to configure deserialization behavior specific to DSSE envelope
+ * structures. Unknown properties found in the input during deserialization are ignored to
+ * ensure compatibility with evolving data formats.
  *
  * @see DSSEDeserializer
  * @see DSSEEnvelope
+ * @see DSSEException
+ * @see DSSEJacksonModule
  */
 public class Jackson2JsonDSSEDeserializer implements DSSEDeserializer {
 
