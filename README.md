@@ -35,9 +35,53 @@ dependencies {
 Add the following to your `pom.xml`:
 
 ```xml
+
 <dependency>
     <groupId>io.github.aigled</groupId>
     <artifactId>dsse-java</artifactId>
     <version>1.0.0</version>
 </dependency>
+```
+
+## Usage
+
+### Signing
+
+Create a DSSESigner with the private key you want to use for signing.
+
+```java
+KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("EC");
+keyPairGenerator.initialize(256);
+KeyPair keyPair = keyPairGenerator.generateKeyPair();
+
+DSSESigner signer = new ECDSASigner("SHA256withECDSA", keyPair.getPrivate());
+```
+
+Create a DSSEEnvelope with the payload you want to sign and sign with the signer you created above.
+
+```java
+DSSEEnvelope envelope = new DSSEEnvelope(json.getBytes(), "application/json");
+envelope.sign("myKeyId",signer);
+```
+
+Create a DSSESerializer and serialize the envelope to JSON.
+
+```java
+DSSESerializer serializer = new Jackson2JsonDSSESerializer();
+String jsonEnvelope = serializer.serialize(envelope);
+```
+
+The resulting JSON after formatting will look like this :
+
+```json
+{
+  "payload": "ewogICJkYXRhIjogInRlc3QiLAp9Cg==",
+  "payloadType": "application/json",
+  "signatures": [
+    {
+      "keyid": "myKeyId",
+      "sig": "MEUCIAPVIklhJHmODjwSbuYk8966XQU0aG4k2gAfg0OYOPM2AiEAu9suuKoBCUcNFqJO83HwobjPCmGWdu5YWebdNxl/xWQ="
+    }
+  ]
+}
 ```
