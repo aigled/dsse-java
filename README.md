@@ -61,7 +61,7 @@ Create a DSSEEnvelope with the payload you want to sign and sign with the signer
 
 ```java
 DSSEEnvelope envelope = new DSSEEnvelope(json.getBytes(), "application/json");
-envelope.sign("myKeyId",signer);
+envelope.sign("myKeyId", signer);
 ```
 
 Create a DSSESerializer and serialize the envelope to JSON.
@@ -84,4 +84,37 @@ The resulting JSON after formatting will look like this :
     }
   ]
 }
+```
+
+### Verifying
+
+Create a DSSEDeserializer and deserialize the JSON envelope you want to verify.
+
+```java
+String jsonEnvelope = "{...}";
+DSSEDeserializer deserializer = new Jackson2JsonDSSEDeserializer();
+DSSEEnvelope envelope = deserializer.deserialize(jsonEnvelope);
+```
+
+Create a DSSEVerifier with the public key you want to use for verification.
+
+```java
+KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("EC");
+keyPairGenerator.initialize(256);
+KeyPair keyPair = keyPairGenerator.generateKeyPair();
+
+DSSEVerifier verifier = new ECDSAVerifier("SHA256withECDSA", keyPair.getPublic());
+```
+
+Create a DSSEVerificationPolicy and configure it according to your needs.
+
+```java
+var trustedVerifiers = Map.of("myKeyId", verifier);
+DSSEVerificationPolicy policy = new ThresholdVerificationPolicy(1, true, trustedVerifiers);
+```
+
+Verify the envelope with the policy you created above and check the result. 
+
+```java
+boolean isVerified = envelope.verify(verifier);
 ```
