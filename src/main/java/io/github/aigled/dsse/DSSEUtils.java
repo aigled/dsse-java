@@ -18,7 +18,7 @@ final class DSSEUtils {
 
         try {
             return Base64.getDecoder().decode(src);
-        } catch (IllegalArgumentException _) {
+        } catch (IllegalArgumentException ex) {
             return Base64.getUrlDecoder().decode(src);
         }
     }

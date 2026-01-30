@@ -54,7 +54,7 @@ public class ECDSAVerifier implements DSSEVerifier {
             sig.initVerify(this.publicKey);
             sig.update(data);
             return sig.verify(signature);
-        } catch (SignatureException _) {
+        } catch (SignatureException ex) {
             return false;
         } catch (NoSuchAlgorithmException | InvalidKeyException ex) {
             throw new DSSEException(ex.getMessage(), ex);

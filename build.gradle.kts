@@ -56,6 +56,16 @@ mavenPublishing {
     }
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+tasks.withType<JavaCompile> {
+    options.release = 17
+}
+
 tasks.compileJava {
     // Stores formal parameter names of constructors and methods in the generated class file so that the
     // method java.lang.reflect.Executable.getParameters from the Reflection API can retrieve them.
