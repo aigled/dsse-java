@@ -12,6 +12,11 @@ DSSE is designed to be a simple, secure envelope for metadata. It avoids the com
 providing a predictable way to wrap a payload and its signatures. This library provides the tools to create, sign, and
 verify these envelopes within the Java ecosystem.
 
+## Requirements
+
+- Compiled with JDK 25
+- Requires Java 17 or higher for runtime
+
 ## Features
 
 - Fully compliant with the DSSE specification.
@@ -132,7 +137,7 @@ var trustedVerifiers = Map.of("myKeyId", verifier);
 DSSEVerificationPolicy policy = new ThresholdVerificationPolicy(1, false, trustedVerifiers);
 ```
 
-Verify the envelope with the policy you created above and check the result. 
+Verify the envelope with the policy you created above and check the result.
 
 ```java
 boolean isVerified = envelope.verify(verifier);
