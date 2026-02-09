@@ -3,6 +3,7 @@ plugins {
     jacoco
     alias(libs.plugins.lombok)
     alias(libs.plugins.gradle.maven.publish)
+    alias(libs.plugins.sonarqube)
 }
 
 repositories {
@@ -59,6 +60,13 @@ mavenPublishing {
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+sonar {
+    properties {
+        property("sonar.projectKey", "aigled_dsse-java")
+        property("sonar.organization", "aigled")
     }
 }
 
