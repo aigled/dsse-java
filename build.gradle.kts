@@ -67,6 +67,7 @@ sonar {
     properties {
         property("sonar.projectKey", "aigled_dsse-java")
         property("sonar.organization", "aigled")
+        property("sonar.junit.reportPaths", "build/test-results")
     }
 }
 
