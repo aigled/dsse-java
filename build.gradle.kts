@@ -3,6 +3,7 @@ plugins {
     jacoco
     alias(libs.plugins.lombok)
     alias(libs.plugins.gradle.maven.publish)
+    alias(libs.plugins.sonarqube)
 }
 
 repositories {
@@ -62,6 +63,14 @@ java {
     }
 }
 
+sonar {
+    properties {
+        property("sonar.projectKey", "aigled_dsse-java")
+        property("sonar.organization", "aigled")
+        property("sonar.junit.reportPaths", "build/test-results")
+    }
+}
+
 tasks.withType<JavaCompile> {
     options.release = 17
 }
@@ -81,6 +90,6 @@ tasks.test {
 tasks.jacocoTestReport {
     dependsOn(tasks.test)
     reports {
-        csv.required.set(true)
+        xml.required = true
     }
 }

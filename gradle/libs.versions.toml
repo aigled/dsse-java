@@ -9,6 +9,7 @@ junit = "6.0.2"
 logback = "1.5.22"
 lombok = "9.1.0"
 mockito = "5.21.0"
+sonarqube = "7.2.2.6593"
 
 [libraries]
 assertj-bom = { module = "org.assertj:assertj-bom", version.ref = "assertj" }
@@ -20,3 +21,4 @@ mockito-bom = { module = "org.mockito:mockito-bom", version.ref = "mockito" }
 [plugins]
 gradle-maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "maven-publish" }
 lombok = { id = "io.freefair.lombok", version.ref = "lombok" }
+sonarqube = { id = "org.sonarqube", version.ref = "sonarqube" }
