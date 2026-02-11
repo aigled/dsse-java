@@ -2,7 +2,7 @@
 # https://docs.gradle.org/current/userguide/version_catalogs.html#sec::toml-dependencies-format
 
 [versions]
-assertj = "3.27.6"
+assertj = "3.27.7"
 jackson = "3.0.3"
 maven-publish = "0.36.0"
 junit = "6.0.2"
