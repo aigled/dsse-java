@@ -142,7 +142,7 @@ DSSEVerificationPolicy policy = new ThresholdVerificationPolicy(1, false, truste
 Verify the envelope with the policy you created above and check the result.
 
 ```java
-boolean isVerified = envelope.verify(verifier);
+boolean isVerified = envelope.verify(policy);
 ```
 
 TIP: You can use the website  https://dsse.io to verify your JSON envelope against the public key.
