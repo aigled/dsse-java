@@ -95,6 +95,17 @@ tasks.jacocoTestReport {
 }
 
 tasks.jar {
+    manifest {
+        attributes(
+            "Automatic-Module-Name" to "${project.group}.${project.name}",
+            "Specification-Title" to "DSSE",
+            "Specification-Version" to "1.0.2",
+            "Specification-Vendor" to "Secure Systems Lab",
+            "Implementation-Title" to project.name,
+            "Implementation-Version" to project.version,
+            "Implementation-Vendor" to "Dorian Aigle"
+        )
+    }
     from(rootProject.file("LICENSE")) {
         into("META-INF")
     }
