@@ -93,3 +93,9 @@ tasks.jacocoTestReport {
         xml.required = true
     }
 }
+
+tasks.jar {
+    from(rootProject.file("LICENSE")) {
+        into("META-INF")
+    }
+}
