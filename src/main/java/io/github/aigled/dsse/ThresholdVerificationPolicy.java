@@ -10,7 +10,10 @@ package io.github.aigled.dsse;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * A verification policy that validates a {@link DSSEEnvelope} using a threshold-based approach.
@@ -27,7 +30,7 @@ public class ThresholdVerificationPolicy implements DSSEVerificationPolicy {
 
     private final int threshold;
     private final boolean filterPublicKeyId;
-    private final Map<String, DSSEVerifier> trustedVerifiers;
+    private final Set<DSSEVerifier> trustedVerifiers;
 
     /**
      * Constructs a ThresholdVerificationPolicy with the specified configuration.
@@ -46,7 +49,7 @@ public class ThresholdVerificationPolicy implements DSSEVerificationPolicy {
      * @throws IllegalArgumentException
      *         if the specified threshold is less than or equal to 0
      */
-    public ThresholdVerificationPolicy(int threshold, boolean filterPublicKeyId, Map<String, DSSEVerifier> trustedVerifiers) {
+    public ThresholdVerificationPolicy(int threshold, boolean filterPublicKeyId, Set<DSSEVerifier> trustedVerifiers) {
 
         if (threshold <= 0) {
             throw new IllegalArgumentException("threshold must be > 0");
@@ -81,15 +84,15 @@ public class ThresholdVerificationPolicy implements DSSEVerificationPolicy {
         List<DSSEVerifier> acceptableVerifiers;
         if (this.filterPublicKeyId) {
             String keyId = signature.keyid();
-            DSSEVerifier verifier = this.trustedVerifiers.get(keyId);
-            if (verifier == null) {
-                acceptableVerifiers = Collections.emptyList();
+            acceptableVerifiers = this.trustedVerifiers.stream()
+                                                       .filter(verifier -> verifier.getKeyId() != null
+                                                               && verifier.getKeyId().equals(keyId))
+                                                       .toList();
+            if (acceptableVerifiers.isEmpty()) {
                 log.warn("Signature with unknown keyid '{}'", keyId);
-            } else {
-                acceptableVerifiers = List.of(verifier);
             }
         } else {
-            acceptableVerifiers = List.copyOf(this.trustedVerifiers.values());
+            acceptableVerifiers = List.copyOf(this.trustedVerifiers);
         }
 
         return acceptableVerifiers.stream()

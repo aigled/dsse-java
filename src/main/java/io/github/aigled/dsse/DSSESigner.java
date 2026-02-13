@@ -20,6 +20,8 @@ package io.github.aigled.dsse;
  */
 public interface DSSESigner {
 
+    String getKeyId();
+
     /**
      * Signs the provided input data using a specific cryptographic signing mechanism.
      *
