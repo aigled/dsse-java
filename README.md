@@ -137,7 +137,7 @@ try (Reader reader = Files.newBufferedReader(Path.of("path/to/public.pem"));
 Create a DSSEVerificationPolicy and configure it according to your needs.
 
 ```java
-var trustedVerifiers = Map.of("myKeyId", verifier);
+var trustedVerifiers = Set.of(verifier);
 DSSEVerificationPolicy policy = new ThresholdVerificationPolicy(1, false, trustedVerifiers);
 ```
 
@@ -147,4 +147,4 @@ Verify the envelope with the policy you created above and check the result.
 boolean isVerified = envelope.verify(policy);
 ```
 
-TIP: You can use the website  https://dsse.io to verify your JSON envelope against the public key.
+TIP: You can use the website https://dsse.io to verify your JSON envelope against the public key.
