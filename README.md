@@ -2,8 +2,8 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Build](https://github.com/aigled/dsse-java/actions/workflows/build.yml/badge.svg)](https://github.com/aigled/dsse-java/actions/workflows/build.yml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=aigled_dsse-java&metric=alert_status&token=23801b6b2ef2154e031ac6e80e544ff5a7d398ed)](https://sonarcloud.io/summary/new_code?id=aigled_dsse-java)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=aigled_dsse-java&metric=coverage&token=23801b6b2ef2154e031ac6e80e544ff5a7d398ed)](https://sonarcloud.io/summary/new_code?id=aigled_dsse-java)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=aigled_dsse-java&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=aigled_dsse-java)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=aigled_dsse-java&metric=coverage)](https://sonarcloud.io/summary/new_code?id=aigled_dsse-java)
 
 A Java implementation of the [Dead Simple Signing Envelope (DSSE)](https://github.com/secure-systems-lab/dsse)
 specification. This library allows you to sign and verify arbitrary data in a consistent, interoperable format.
