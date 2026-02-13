@@ -20,6 +20,13 @@ package io.github.aigled.dsse;
  */
 public interface DSSESigner {
 
+    /**
+     * Retrieves the identifier of the key used for signing operations.
+     * The key ID is typically used to indicate the specific cryptographic key
+     * employed in the signing process, facilitating key management and verification.
+     *
+     * @return a string representing the identifier of the signing key
+     */
     String getKeyId();
 
     /**

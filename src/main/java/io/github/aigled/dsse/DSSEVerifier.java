@@ -17,6 +17,13 @@ package io.github.aigled.dsse;
  */
 public interface DSSEVerifier {
 
+    /**
+     * Retrieves the identifier of the key used during signature verification.
+     * The key ID is typically used to identify the cryptographic key
+     * associated with the verification process.
+     *
+     * @return a string representing the identifier of the verification key
+     */
     String getKeyId();
 
     /**
