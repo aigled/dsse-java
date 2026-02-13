@@ -113,35 +113,19 @@ public class DSSEEnvelope {
     }
 
     /**
-     * Signs the DSSE envelope using the provided {@code DSSESigner} instance.
-     * This method delegates the signing operation to the {@link #sign(String, DSSESigner)}
-     * method with a {@code null} key identifier.
-     *
-     * @param signer
-     *         the {@code DSSESigner} instance responsible for creating the digital signature; must not be null
-     */
-    public void sign(DSSESigner signer) {
-
-        this.sign(null, signer);
-    }
-
-    /**
-     * Signs the DSSE envelope with the provided key and signer, adding a new signature
+     * Signs the DSSE envelope using the provided {@code DSSESigner} instance, adding a new signature
      * to the envelope and updating its state to {@code SIGNED}.
      * This method uses the Pre-Authentication Encoding (PAE) of the envelope's payload
      * type and serialized body as the input data for signing.
      *
-     * @param keyid
-     *         the identifier of the key used for signing; may help distinguish the key
-     *         that produced the signature
      * @param signer
      *         the {@code DSSESigner} instance responsible for creating the digital signature; must not be null
      */
-    public synchronized void sign(String keyid, DSSESigner signer) {
+    public synchronized void sign(DSSESigner signer) {
 
         String pae = DSSESignature.createPreAuthenticationEncoding(this.payloadType, this.serializedBody);
         byte[] signedContent = signer.sign(pae.getBytes());
-        DSSESignature dsseSignature = DSSESignature.of(keyid, signedContent);
+        DSSESignature dsseSignature = DSSESignature.of(signer.getKeyId(), signedContent);
         this.signatures.add(dsseSignature);
         this.state.set(State.SIGNED);
     }

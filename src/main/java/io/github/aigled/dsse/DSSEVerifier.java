@@ -17,6 +17,8 @@ package io.github.aigled.dsse;
  */
 public interface DSSEVerifier {
 
+    String getKeyId();
+
     /**
      * Verifies a signature against signed content.
      *
