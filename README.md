@@ -34,7 +34,7 @@ Add the following to your `build.gradle.kts`:
 
 ```kotlin
 dependencies {
-    implementation("io.github.aigled:dsse-java:1.0.1")
+    implementation("io.github.aigled:dsse-java:1.0.2")
 }
 ```
 
@@ -47,7 +47,7 @@ Add the following to your `pom.xml`:
 <dependency>
     <groupId>io.github.aigled</groupId>
     <artifactId>dsse-java</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 </dependency>
 ```
 
