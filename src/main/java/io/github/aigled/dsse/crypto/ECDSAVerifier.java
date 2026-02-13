@@ -27,8 +27,34 @@ import java.util.Objects;
  */
 public class ECDSAVerifier implements DSSEVerifier {
 
+    private final String keyId;
     private final String algorithm;
     private final PublicKey publicKey;
+
+    /**
+     * Constructs a new {@code ECDSAVerifier} instance with the specified keyid, verification algorithm,
+     * and public key. The public key must be of type EC (Elliptic Curve).
+     *
+     * @param keyId
+     *         an optional, unauthenticated hint indicating what key and algorithm were used to sign the message; may be {@code null}
+     * @param algorithm
+     *         the verification algorithm to be used, e.g., "SHA256withECDSA"; must not be null
+     * @param publicKey
+     *         the public key to be used for verification; must not be null and must
+     *         have the algorithm type "EC"
+     * @throws IllegalArgumentException
+     *         if the public key algorithm is not "EC".
+     */
+    public ECDSAVerifier(String keyId, @NonNull String algorithm, @NonNull PublicKey publicKey) {
+
+        if (!"EC".equalsIgnoreCase(publicKey.getAlgorithm())) {
+            throw new IllegalArgumentException("The public key algorithm must be EC");
+        }
+
+        this.keyId = keyId;
+        this.algorithm = algorithm;
+        this.publicKey = publicKey;
+    }
 
     /**
      * Constructs a new {@code ECDSAVerifier} instance with the specified verification algorithm
@@ -42,14 +68,15 @@ public class ECDSAVerifier implements DSSEVerifier {
      * @throws IllegalArgumentException
      *         if the public key algorithm is not "EC".
      */
-    public ECDSAVerifier(@NonNull String algorithm, @NonNull PublicKey publicKey) {
+    public ECDSAVerifier(String algorithm, PublicKey publicKey) {
 
-        if (!"EC".equalsIgnoreCase(publicKey.getAlgorithm())) {
-            throw new IllegalArgumentException("The public key algorithm must be EC");
-        }
+        this(null, algorithm, publicKey);
+    }
 
-        this.algorithm = algorithm;
-        this.publicKey = publicKey;
+    @Override
+    public String getKeyId() {
+
+        return this.keyId;
     }
 
     @Override

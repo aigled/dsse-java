@@ -37,11 +37,12 @@ class DSSEEnvelopeTest {
         // Arrange
         DSSEEnvelope envelope = new DSSEEnvelope("content".getBytes(), "application/json");
 
+        when(this.signer.getKeyId()).thenReturn(null, "keyid");
         when(this.signer.sign(any())).thenReturn("signature1".getBytes(), "signature2".getBytes());
 
         // Act
         envelope.sign(this.signer);
-        envelope.sign("keyid", this.signer);
+        envelope.sign(this.signer);
 
         // Assert
         assertThat(envelope.getState().get()).isEqualTo(DSSEEnvelope.State.SIGNED);

@@ -17,19 +17,18 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.verifyNoInteractions;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ThresholdVerificationPolicyTest {
 
-    private Map<String, DSSEVerifier> trustedVerifiers;
+    private Set<DSSEVerifier> trustedVerifiers;
 
     @Mock
     private DSSEVerifier mockVerifierOne;
@@ -40,8 +39,7 @@ class ThresholdVerificationPolicyTest {
     @BeforeEach
     void setUp() {
 
-        this.trustedVerifiers = Map.of("keyid-1", this.mockVerifierOne,
-                                       "keyid-2", this.mockVerifierTwo);
+        this.trustedVerifiers = Set.of(this.mockVerifierOne, this.mockVerifierTwo);
     }
 
     @Test
@@ -65,7 +63,9 @@ class ThresholdVerificationPolicyTest {
                                                              "application/json",
                                                              List.of(dsseSignatureOne, dsseSignatureTwo));
 
+        when(this.mockVerifierOne.getKeyId()).thenReturn("keyid-1");
         when(this.mockVerifierOne.verify(any(byte[].class), eq(signatureOne))).thenReturn(true);
+        when(this.mockVerifierTwo.getKeyId()).thenReturn("keyid-2");
         when(this.mockVerifierTwo.verify(any(byte[].class), eq(signatureTwo))).thenReturn(true);
 
         ThresholdVerificationPolicy policy = new ThresholdVerificationPolicy(2, true, this.trustedVerifiers);
@@ -90,7 +90,9 @@ class ThresholdVerificationPolicyTest {
                                                              "application/json",
                                                              List.of(dsseSignatureOne, dsseSignatureTwo));
 
+        when(this.mockVerifierOne.getKeyId()).thenReturn("keyid-1");
         when(this.mockVerifierOne.verify(any(byte[].class), eq(signatureOne))).thenReturn(false);
+        when(this.mockVerifierTwo.getKeyId()).thenReturn("keyid-2");
         when(this.mockVerifierTwo.verify(any(byte[].class), eq(signatureTwo))).thenReturn(true);
 
         ThresholdVerificationPolicy policy = new ThresholdVerificationPolicy(2, true, this.trustedVerifiers);
@@ -118,7 +120,8 @@ class ThresholdVerificationPolicyTest {
 
         // Assert
         assertThat(result).isFalse();
-        verifyNoInteractions(this.mockVerifierOne, this.mockVerifierTwo);
+        verify(this.mockVerifierOne).getKeyId();
+        verify(this.mockVerifierTwo).getKeyId();
     }
 
     @Test
@@ -139,5 +142,7 @@ class ThresholdVerificationPolicyTest {
 
         // Assert
         assertThat(result).isTrue();
+        verify(this.mockVerifierOne, never()).getKeyId();
+        verify(this.mockVerifierTwo, never()).getKeyId();
     }
 }
