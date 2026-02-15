@@ -10,6 +10,8 @@ repositories {
     mavenCentral()
 }
 
+val mockitoAgent = configurations.create("mockitoAgent")
+
 dependencies {
     implementation(platform(libs.jackson.bom))
     implementation("com.fasterxml.jackson.core:jackson-annotations")
@@ -20,7 +22,10 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
 
     testImplementation(platform(libs.mockito.bom))
-    testImplementation("org.mockito:mockito-core")
+    testImplementation(libs.mockito.core)
+    mockitoAgent(libs.mockito.core) {
+        isTransitive = false
+    }
     testImplementation("org.mockito:mockito-junit-jupiter")
 
     testImplementation(platform(libs.assertj.bom))
@@ -82,7 +87,8 @@ tasks.compileJava {
 }
 
 tasks.test {
-    jvmArgs("-Xshare:off")
+    jvmArgs.add("-Xshare:off")
+    jvmArgs.add("-javaagent:${mockitoAgent.asPath}")
     useJUnitPlatform()
     finalizedBy(tasks.jacocoTestReport)
 }
