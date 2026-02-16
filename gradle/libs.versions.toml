@@ -3,7 +3,7 @@
 
 [versions]
 assertj = "3.27.7"
-jackson = "3.0.3"
+jackson = "3.0.4"
 maven-publish = "0.36.0"
 junit = "6.0.3"
 logback = "1.5.29"
