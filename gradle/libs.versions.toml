@@ -7,7 +7,7 @@ jackson = "3.1.2"
 maven-publish = "0.36.0"
 junit = "6.0.3"
 logback = "1.5.32"
-lombok = "9.2.0"
+lombok = "9.4.0"
 mockito = "5.23.0"
 sonarqube = "7.2.3.7755"
 
