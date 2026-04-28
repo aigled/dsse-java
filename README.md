@@ -83,7 +83,8 @@ try (Reader reader = Files.newBufferedReader(Path.of("path/to/private.pem"));
 Create a DSSEEnvelope with the payload you want to sign and sign with the signer you created above.
 
 ```java
-DSSEEnvelope envelope = new DSSEEnvelope(json.getBytes(), "application/json");
+String jsonToSign = "{...}";
+DSSEEnvelope envelope = new DSSEEnvelope(jsonToSign.getBytes(), "application/json");
 envelope.sign("myKeyId", signer);
 ```
 
@@ -134,7 +135,7 @@ try (Reader reader = Files.newBufferedReader(Path.of("path/to/public.pem"));
 }
 ```
 
-Create a DSSEVerificationPolicy and configure it according to your needs.
+Create a DSSEVerificationPolicy and configure it according to your needs with the verifier you created above.
 
 ```java
 var trustedVerifiers = Set.of(verifier);
