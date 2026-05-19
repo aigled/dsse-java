@@ -12,6 +12,12 @@ repositories {
 
 val mockitoAgent = configurations.create("mockitoAgent")
 
+configurations {
+    compileClasspath {
+        resolutionStrategy.activateDependencyLocking()
+    }
+}
+
 dependencies {
     implementation(platform(libs.jackson.bom))
     implementation("com.fasterxml.jackson.core:jackson-annotations")
