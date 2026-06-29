@@ -1,8 +1,8 @@
 # This is a Gradle generated file for dependency locking.
 # Manual edits can break the build and are not advised.
 # This file is expected to be part of source control.
-ch.qos.logback:logback-classic:1.5.34=compileClasspath
-ch.qos.logback:logback-core:1.5.34=compileClasspath
+ch.qos.logback:logback-classic:1.5.37=compileClasspath
+ch.qos.logback:logback-core:1.5.37=compileClasspath
 com.fasterxml.jackson.core:jackson-annotations:2.21=compileClasspath
 com.github.spotbugs:spotbugs-annotations:4.7.3=compileClasspath
 com.google.code.findbugs:jsr305:3.0.2=compileClasspath
