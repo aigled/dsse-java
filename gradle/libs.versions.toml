@@ -8,7 +8,7 @@ maven-publish = "0.37.0"
 junit = "6.1.3"
 logback = "1.6.3"
 lombok = "9.5.0"
-mockito = "5.23.0"
+mockito = "5.24.0"
 sonarqube = "7.5.0.8588"
 
 [libraries]
